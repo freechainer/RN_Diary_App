@@ -26,7 +26,6 @@ export default class WriteScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'yellow',
         paddingTop: 50,
     },
     textstyle: {
