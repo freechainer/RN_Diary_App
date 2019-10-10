@@ -1,24 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 import MainScreen from './screens/MainScreen';
 import WriteScreen from './screens/WriteScreen';
 import DetailScreen from './screens/DetailScreen';
+
+import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
 
 const BaseNavi = createBottomTabNavigator({
   MainScreen: {
     screen: MainScreen
   },
   DetailScreen: {
-    screen: DetailScreen
+    screen: DetailScreen,
   },
   WriteScreen: {
     screen: WriteScreen
   },
+},
+{
+  tabBarOptions: {
+    showLabel:false
+  }
 })
 
-const MyNavi = createAppContainer(BaseNavi)
+const BaseNavi2 = createStackNavigator(
+{
+  Write: WriteScreen,
+  Tab: BaseNavi,
+},
+{
+  initialRouteName: 'Tab',
+  mode: 'modal',
+  headerMode: 'none'
+}
+)
+
+const MyNavi = createAppContainer(BaseNavi2)
 
 export default function App() {
   return (
