@@ -1,22 +1,28 @@
 import React from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, Dimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DetailHeader from '../components/DetailHeader';
 import NullPage from '../components/Nullpage';
+
+const {width, height} = Dimensions.get('window');
 
 export default class DetailScreen extends React.Component {
     static navigationOptions= {
         tabBarIcon: ({tintColor}) => (
           <MaterialCommunityIcons name="book-open-page-variant" size={30} style={{color:tintColor}} />
         )
-      }
+    }
+
     post = this.props.navigation.getParam('post')
 
+    _deletesignal=()=>{
+        this.props.navigation.navigate("MainScreen", {signal: this.post.id})
+    }
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <DetailHeader />
+                <DetailHeader deleteProps={this._deletesignal}/>
                 {this.post?
                 <View>
                         <View style = {styles.detailbox}>
@@ -24,6 +30,11 @@ export default class DetailScreen extends React.Component {
                                 제목 : {this.post.title}
                             </Text>
                         </View>
+                        {
+                            this.post.imageUri ?
+                            <Image source={{ uri: this.post.imageUri }} style={{ width: 100, height: 100 }} /> :
+                            null
+                        }   
                         <View style={styles.detailbox}>
                             <Text style={styles.detailcontent}>
                                 내용 : {this.post.content}
@@ -40,7 +51,7 @@ export default class DetailScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop:50,
+        paddingTop: 50,
     },
     textstyle: {
         fontSize: 40,

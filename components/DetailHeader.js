@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 
-const DetailHeader = ({navigation})=>{
+const DetailHeader = ({navigation, deleteProps})=>{
     return (
         <View style={styles.header}>
         <View style={styles.container}>
@@ -17,7 +17,7 @@ const DetailHeader = ({navigation})=>{
 
             <TouchableOpacity 
                 activeOpacity={0.8}
-                onPress={ ()=>{ navigation.goBack() } }
+                onPress={ ()=>{ deleteProps() } }
                 hitSlop={{ top:2, bottom: 2, left: 2, right: 2}}>
                 <Ionicons name="ios-close" size={30} color={'#7a7171'}/>
             </TouchableOpacity>
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default withNavigation(DetailHeader)
+export default withNavigation(DetailHeader);
