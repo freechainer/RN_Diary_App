@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, TextInput, Image, Dimensions } from 'react-native';
+import { Text, StyleSheet, View, TextInput, Image, Dimensions, Platform } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import WriteHeader from '../components/WriteHeader';
@@ -67,13 +67,13 @@ export default class WriteScreen extends React.Component {
             )
             this.props.navigation.navigate('MainScreen', {myparam : newpost})
         } else {
-            this.this.props.navigation.navigate('MainScreen')
+            this.props.navigation.navigate('MainScreen')
         }
     }
 
     _selectImage = async () => {
         
-        if (Constants.platform.ios) {
+        if(Platform.OS == 'ios') {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
               alert('Sorry, we need camera roll permissions to make this work!');
@@ -85,7 +85,7 @@ export default class WriteScreen extends React.Component {
         });
 
         if (!result.cancelled) {
-            this.setState({ imageUri: result.uri });
+            this.setState({imageUrl: result.uri});
         }
     };
 
